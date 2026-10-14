@@ -148,6 +148,10 @@ loadWeather();
 <section id="live-weather" style="padding:20px;background:#0f172a;color:white;border-radius:12px;">
   <h2>🌦️ Live Weather & Rainfall</h2>
   <button onclick="loadWeather()">🔄 Refresh Weather</button>
-  <div id="weatherPanel">Loading weather...</div>
+  
+<div id="weatherPanel" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;align-items:stretch;">
+  Loading weather...
+</div>
+
 </section>
 </body></html>

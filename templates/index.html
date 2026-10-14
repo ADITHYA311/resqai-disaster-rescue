@@ -110,6 +110,44 @@ const locations = [
       `<b>${place.name}</b><br>Demo risk: ${place.risk}`
     );
   });
-</script>
+  
+async function loadWeather() {
+  const panel = document.getElementById('weatherPanel');
+  panel.innerHTML = '<p>Loading weather...</p>';
 
+  const results = await Promise.allSettled(
+    locations.map(async (place) => {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${place.lat}&longitude=${place.lng}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&timezone=auto`;
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Weather unavailable');
+
+      const data = await response.json();
+      const w = data.current;
+
+      return `<div style="padding:12px;margin:8px 0;background:#1e293b;border-radius:8px">
+        <h3>${place.name}</h3>
+        <p>🌡️ Temperature: ${w.temperature_2m} °C</p>
+        <p>🌧️ Rainfall now: ${w.precipitation} mm</p>
+        <p>💧 Humidity: ${w.relative_humidity_2m}%</p>
+        <p>💨 Wind: ${w.wind_speed_10m} km/h</p>
+      </div>`;
+    })
+  );
+
+  panel.innerHTML = results.map((r, i) =>
+    r.status === 'fulfilled'
+      ? r.value
+      : `<p>${locations[i].name}: Weather unavailable</p>`
+  ).join('');
+}
+
+loadWeather();
+
+</script>
+<section id="live-weather" style="padding:20px;background:#0f172a;color:white;border-radius:12px;">
+  <h2>🌦️ Live Weather & Rainfall</h2>
+  <button onclick="loadWeather()">🔄 Refresh Weather</button>
+  <div id="weatherPanel">Loading weather...</div>
+</section>
 </body></html>

@@ -71,11 +71,34 @@
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  const locations = [
-    {name: 'Tirunelveli', lat: 8.7139, lng: 77.7567, risk: 'High', color: 'red'},
-    {name: 'Madurai', lat: 9.9252, lng: 78.1198, risk: 'Medium', color: 'orange'},
-    {name: 'Kanyakumari', lat: 8.0883, lng: 77.5385, risk: 'Low', color: 'green'}
-  ];
+  
+const locations = [
+  {name: 'Chennai', lat: 13.0827, lng: 80.2707, risk: 'High', color: 'red'},
+  {name: 'Coimbatore', lat: 11.0168, lng: 76.9558, risk: 'Low', color: 'green'},
+  {name: 'Madurai', lat: 9.9252, lng: 78.1198, risk: 'Medium', color: 'orange'},
+  {name: 'Tirunelveli', lat: 8.7139, lng: 77.7567, risk: 'High', color: 'red'},
+  {name: 'Kanyakumari', lat: 8.0883, lng: 77.5385, risk: 'Low', color: 'green'},
+  {name: 'Trichy', lat: 10.7905, lng: 78.7047, risk: 'Medium', color: 'orange'},
+  {name: 'Salem', lat: 11.6643, lng: 78.1460, risk: 'Low', color: 'green'},
+  {name: 'Erode', lat: 11.3410, lng: 77.7172, risk: 'Low', color: 'green'},
+  {name: 'Thanjavur', lat: 10.7870, lng: 79.1378, risk: 'Medium', color: 'orange'},
+  {name: 'Vellore', lat: 12.9165, lng: 79.1325, risk: 'Low', color: 'green'},
+  {name: 'Tiruppur', lat: 11.1085, lng: 77.3411, risk: 'Medium', color: 'orange'},
+  {name: 'Dindigul', lat: 10.3673, lng: 77.9803, risk: 'Low', color: 'green'},
+  {name: 'Thoothukudi', lat: 8.7642, lng: 78.1348, risk: 'Medium', color: 'orange'},
+  {name: 'Karur', lat: 10.9601, lng: 78.0766, risk: 'Low', color: 'green'},
+  {name: 'Namakkal', lat: 11.2189, lng: 78.1677, risk: 'Low', color: 'green'},
+  {name: 'Cuddalore', lat: 11.7447, lng: 79.7680, risk: 'Medium', color: 'orange'},
+  {name: 'Villupuram', lat: 11.9401, lng: 79.4861, risk: 'Medium', color: 'orange'},
+  {name: 'Kanchipuram', lat: 12.8342, lng: 79.7036, risk: 'Low', color: 'green'},
+  {name: 'Tiruvannamalai', lat: 12.2253, lng: 79.0747, risk: 'Medium', color: 'orange'},
+  {name: 'Krishnagiri', lat: 12.5186, lng: 78.2137, risk: 'Low', color: 'green'},
+  {name: 'Dharmapuri', lat: 12.1211, lng: 78.1582, risk: 'Low', color: 'green'},
+  {name: 'Sivakasi', lat: 9.4533, lng: 77.7970, risk: 'Low', color: 'green'},
+  {name: 'Ramanathapuram', lat: 9.3639, lng: 78.8395, risk: 'Medium', color: 'orange'},
+  {name: 'Pudukkottai', lat: 10.3833, lng: 78.8001, risk: 'Low', color: 'green'},
+  {name: 'Nagapattinam', lat: 10.7672, lng: 79.8449, risk: 'Medium', color: 'orange'}
+];
 
   locations.forEach(place => {
     L.circleMarker([place.lat, place.lng], {

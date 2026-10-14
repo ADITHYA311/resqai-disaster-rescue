@@ -125,7 +125,10 @@ async function loadWeather() {
       const data = await response.json();
       const w = data.current;
 
-      return `<div style="padding:12px;margin:8px 0;background:#1e293b;border-radius:8px">
+      return `<div style="
+      
+<div style="padding:16px;margin:0;background:#1e293b;border-radius:12px;min-width:0;box-sizing:border-box;">
+
         <h3>${place.name}</h3>
         <p>🌡️ Temperature: ${w.temperature_2m} °C</p>
         <p>🌧️ Rainfall now: ${w.precipitation} mm</p>

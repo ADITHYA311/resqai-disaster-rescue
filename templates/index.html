@@ -41,4 +41,52 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="{{ url_for('static', filename='app.js') }}"></script>
+  
+<section id="live-disaster-map" style="padding:24px; margin:20px 0; background:#101827; color:white; border-radius:16px;">
+  <h2>🌍 Live Disaster Map</h2>
+  <p>Disaster risk locations — demo data</p>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+    <span>🔴 High Risk</span>
+    <span>🟠 Medium Risk</span>
+    <span>🟢 Low Risk</span>
+  </div>
+
+  <div id="disasterMap" style="height:420px; border-radius:12px; overflow:hidden;"></div>
+
+  <p style="font-size:12px; color:#cbd5e1;">
+    Demo locations only. These markers are not verified real-time alerts.
+  </p>
+</section>
+
+<link rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  const map = L.map('disasterMap').setView([9.0, 78.0], 7);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const locations = [
+    {name: 'Tirunelveli', lat: 8.7139, lng: 77.7567, risk: 'High', color: 'red'},
+    {name: 'Madurai', lat: 9.9252, lng: 78.1198, risk: 'Medium', color: 'orange'},
+    {name: 'Kanyakumari', lat: 8.0883, lng: 77.5385, risk: 'Low', color: 'green'}
+  ];
+
+  locations.forEach(place => {
+    L.circleMarker([place.lat, place.lng], {
+      radius: 10,
+      color: place.color,
+      fillColor: place.color,
+      fillOpacity: 0.75
+    }).addTo(map).bindPopup(
+      `<b>${place.name}</b><br>Demo risk: ${place.risk}`
+    );
+  });
+</script>
+
 </body></html>

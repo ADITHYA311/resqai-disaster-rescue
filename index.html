@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ResQAI | Disaster Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#top"><span class="brand-icon">✳</span><span>ResQ<span class="brand-accent">AI</span><small>DISASTER INTELLIGENCE</small></span></a>
+    <div class="side-label">WORKSPACE</div>
+    <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+    <a class="nav-link" href="#risk-lab"><span>⌁</span> AI Risk Lab</a>
+    <a class="nav-link" href="#map-section"><span>⌖</span> Risk Map</a>
+    <a class="nav-link" href="#rescue-section"><span>＋</span> Rescue Requests <b id="side-request-count">0</b></a>
+    <div class="sidebar-bottom"><div class="status-dot"></div><div><strong>Prototype environment</strong><small>Local demo data only</small></div></div>
+  </aside>
+  <main class="main" id="top">
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> Overview</div><div class="top-actions"><span class="demo-pill"><i></i> DEMO MODE</span><button class="icon-btn" id="refresh-btn" title="Refresh dashboard" aria-label="Refresh dashboard">↻</button><div class="avatar">RQ</div></div></header>
+    <section class="hero" id="overview"><div><div class="eyebrow"><span class="pulse"></span> COMMUNITY RESILIENCE PLATFORM</div><h1>Disaster response,<br><em>one step ahead.</em></h1><p>Monitor risk indicators, understand demo AI estimates, and coordinate community assistance from one workspace.</p><div class="hero-actions"><a class="btn btn-primary" href="#risk-lab">Run risk assessment <span>↗</span></a><a class="btn btn-secondary" href="#rescue-section">Submit a rescue request</a></div></div><div class="hero-graphic"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="globe">⌖</div><div class="float-tag tag-top"><span class="tag-dot orange"></span> RISK MONITORING</div><div class="float-tag tag-bottom"><span class="tag-dot green"></span> RESPONSE READY</div></div></section>
+    <div class="notice"><span class="notice-icon">ⓘ</span><div><strong>Hackathon prototype — not an official warning service.</strong><span> Risk predictions use synthetic training data. Map markers and example conditions are illustrative. For real emergencies, contact local emergency services and follow official alerts.</span></div></div>
+    <section class="stats-grid">
+      <article class="stat-card"><div class="stat-head"><span>Rescue requests</span><span class="stat-icon purple">＋</span></div><div class="stat-value" id="stat-total">0</div><div class="stat-foot">Submitted in this demo</div></article>
+      <article class="stat-card"><div class="stat-head"><span>Awaiting review</span><span class="stat-icon orange">◷</span></div><div class="stat-value" id="stat-new">0</div><div class="stat-foot"><span class="tiny-dot orange"></span> New requests</div></article>
+      <article class="stat-card"><div class="stat-head"><span>In progress</span><span class="stat-icon blue">↗</span></div><div class="stat-value" id="stat-progress">0</div><div class="stat-foot">Being coordinated</div></article>
+      <article class="stat-card"><div class="stat-head"><span>Resolved</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="stat-resolved">0</div><div class="stat-foot">Marked resolved</div></article>
+    </section>
+    <section class="content-grid">
+      <article class="panel map-panel" id="map-section"><div class="panel-heading"><div><div class="eyebrow">GEOSPATIAL OVERVIEW</div><h2>Community risk map</h2></div><span class="subtle-chip">Illustrative locations</span></div><div id="map" aria-label="Illustrative disaster risk map"></div><div class="map-legend"><span><i class="legend-dot low"></i> Low</span><span><i class="legend-dot moderate"></i> Moderate</span><span><i class="legend-dot high"></i> High</span><span class="legend-right">Demo markers · South India</span></div></article>
+      <article class="panel risk-panel" id="risk-lab"><div class="panel-heading"><div><div class="eyebrow">MACHINE LEARNING</div><h2>AI risk lab</h2></div><span class="ai-chip">✳ Random Forest</span></div><p class="panel-description">Adjust sample conditions to explore how the demo model classifies flood risk.</p><form id="predict-form" class="risk-form"><label>Rainfall <span id="rain-label">75 mm</span><input id="rainfall" type="range" min="0" max="300" value="75" step="5"></label><label>River gauge level <span id="river-label">4.0 / 10</span><input id="river-level" type="range" min="0" max="10" value="4" step="0.5"></label><label>Soil saturation <span id="soil-label">55%</span><input id="soil-saturation" type="range" min="0" max="100" value="55" step="5"></label><button class="btn btn-primary full-width" type="submit">Calculate demo risk <span>→</span></button></form><div class="prediction-box" id="prediction-box"><div class="prediction-top"><span>MODEL ESTIMATE</span><span class="risk-badge moderate" id="risk-badge">MODERATE</span></div><div class="prediction-score"><strong id="risk-score">—</strong><span>/ 100<br>demo risk score</span></div><div class="meter"><span id="risk-meter"></span></div><div class="prediction-meta"><span>Model confidence</span><strong id="model-confidence">—</strong></div><p class="prediction-note" id="prediction-note">Run an assessment to calculate a demo estimate.</p></div></article>
+    </section>
+    <section class="content-grid lower-grid">
+      <article class="panel request-panel" id="rescue-section"><div class="panel-heading"><div><div class="eyebrow">COMMUNITY SUPPORT</div><h2>Request assistance</h2></div><span class="subtle-chip">Local demo only</span></div><p class="panel-description">Submit a sample request to see how it appears in the response queue. Do not enter sensitive personal information.</p><form id="rescue-form" class="rescue-form"><div class="form-row"><label>Name<input name="name" required maxlength="100" placeholder="Demo name"></label><label>Contact number<input name="phone" required maxlength="40" placeholder="Demo contact"></label></div><div class="form-row"><label>Location / area<input name="location" required maxlength="200" placeholder="Area or landmark"></label><label>Emergency type<select name="emergency_type" required><option value="">Select type</option><option>Flooding</option><option>Medical assistance</option><option>Evacuation support</option><option>Food / water</option><option>Other</option></select></label></div><div class="form-row"><label>People needing help<input name="people" type="number" min="1" max="1000" value="1" required></label><label>Additional details<input name="details" maxlength="1000" placeholder="Optional demo details"></label></div><button class="btn btn-primary" type="submit">Submit demo request <span>→</span></button><div class="form-message" id="form-message" role="status"></div></form></article>
+      <article class="panel queue-panel"><div class="panel-heading"><div><div class="eyebrow">RESPONSE WORKSPACE</div><h2>Recent requests</h2></div><button class="text-btn" id="requests-refresh">Refresh ↻</button></div><div id="request-list" class="request-list"><div class="empty-state">Loading requests…</div></div><div class="queue-foot">Statuses can be updated for this local demo.</div></article>
+    </section>
+    <footer><span>ResQAI <b>·</b> Hackathon prototype</span><span>Built for safer, more resilient communities</span></footer>
+  </main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>

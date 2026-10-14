@@ -112,4 +112,9 @@
     padding: 16px;
   }
 }
+.main {
+  width: calc(100% - 62px);
+  margin-left: 62px;
+  padding: 0 16px;
+}
 
